@@ -1,47 +1,354 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TEMANCOX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TEMANCOX — Bold & Simple</title>
+  <meta name="description" content="Front-end developer portfolio — HTML, CSS, JavaScript. Building modern, responsive, and interactive websites." />
+  <meta property="og:title" content="TEMANCOX — Bold & Simple" />
+  <meta property="og:description" content="Front-end developer portfolio — HTML, CSS, JavaScript." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#ffcc00" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
+    :root{
+      --bg:#0b0b0b;           /* near-black */
+      --text:#eaeaea;         /* light text */
+      --muted:#a3a3a3;        /* muted text */
+      --brand:#ffcc00;        /* yellow */
+      --brand-strong:#ffb300; /* hover */
+      --card:#141414;         /* card bg */
+      --stroke:#1f1f1f;       /* borders */
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px var(--stroke);
     }
-    h1 {
-      color: #ffcc00;
-      font-size: 3rem;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 600px at 80% -10%, rgba(255,204,0,.15), transparent 60%),
+               radial-gradient(800px 400px at -10% 20%, rgba(255,204,0,.08), transparent 60%), var(--bg);
+      color:var(--text); font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif; line-height:1.6;
     }
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1140px,92%); margin:0 auto}
+    /* nav */
+    .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px); background:rgba(11,11,11,.6); border-bottom:1px solid var(--stroke)}
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:.9rem 0}
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.5px}
+    .brand-mark{width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-strong)); display:grid; place-items:center; box-shadow:0 10px 25px rgba(255,204,0,.25)}
+    .brand-mark svg{width:20px; height:20px; fill:#111}
+    .nav-links{display:flex; gap:1.2rem; align-items:center}
+    .nav-links a{color:var(--muted); font-weight:600}
+    .nav-links a:hover{color:var(--text)}
+    .burger{display:none}
+    /* hero */
+    .hero{padding:96px 0 56px; position:relative}
+    .eyebrow{display:inline-flex; align-items:center; gap:.5rem; background:#111; border:1px solid var(--stroke); color:var(--muted); border-radius:999px; padding:.35rem .7rem; font-size:.85rem}
+    .eyebrow .dot{width:8px; height:8px; border-radius:999px; background:var(--brand)}
+    .hero h1{font-size:clamp(2.2rem, 4vw + 1rem, 4rem); line-height:1.1; margin:16px 0; letter-spacing:-.5px}
+    .accent{color:var(--brand)}
+    .lead{color:#cfcfcf; max-width:720px}
+    .cta{display:flex; gap:12px; margin-top:22px}
+    .btn{padding:12px 18px; border-radius:12px; font-weight:700; border:1px solid var(--stroke); background:#111; color:var(--text); box-shadow:var(--shadow); transition:.2s transform,.2s box-shadow,.2s background}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-strong)); color:#111; border:none}
+    .btn-primary:hover{box-shadow:0 12px 32px rgba(255,204,0,.35)}
+    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:24px; margin-top:28px}
+    .hero-card{background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); border:1px solid var(--stroke)}
+    .stat{display:flex; align-items:center; gap:10px}
+    .stat b{font-size:1.4rem}
+    .mock{aspect-ratio:16/10; border-radius:16px; background:linear-gradient(180deg,#1b1b1b,#111); border:1px solid var(--stroke); overflow:hidden; position:relative}
+    .bars{position:absolute; inset:0; display:grid; grid-template-columns:repeat(12,1fr); gap:2px; padding:10px}
+    .bars span{background:rgba(255,255,255,.07); border-radius:6px}
+
+    /* section */
+    section{padding:72px 0}
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:24px}
+    .section-head h2{font-size:clamp(1.6rem,1.6rem + 1.2vw,2.2rem); margin:0}
+    .muted{color:var(--muted)}
+
+    /* features */
+    .features{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .card{background:var(--card); border-radius:var(--radius); padding:20px; border:1px solid var(--stroke); box-shadow:var(--shadow)}
+    .card h3{margin:6px 0 6px; font-size:1.1rem}
+    .chip{display:inline-block; font-size:.8rem; padding:.25rem .5rem; border-radius:999px; border:1px solid var(--stroke); color:var(--muted)}
+
+    /* work */
+    .work{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
+    .work .tile{grid-column:span 6; aspect-ratio:16/10; border-radius:18px; overflow:hidden; background:#111; border:1px solid var(--stroke); position:relative}
+    .tile .meta{position:absolute; inset:auto 12px 12px 12px; background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.12); padding:10px 12px; border-radius:12px; backdrop-filter:blur(6px)}
+
+    /* testimonials */
+    .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    blockquote{margin:0; padding:18px; border-radius:16px; background:var(--card); border:1px solid var(--stroke); box-shadow:var(--shadow)}
+    blockquote p{margin:0 0 10px 0}
+
+    /* contact */
+    .contact{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    .input{width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--stroke); background:#111; color:var(--text)}
+    textarea.input{min-height:120px; resize:vertical}
+
+    /* footer */
+    footer{border-top:1px solid var(--stroke); padding:36px 0; color:var(--muted)}
+
+    /* reveal/animation */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease}
+    .reveal.show{opacity:1; transform:translateY(0)}
+
+    /* responsive */
+    @media (max-width: 960px){
+      .hero-grid{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr 1fr}
+      .quotes{grid-template-columns:1fr 1fr}
+      .contact{grid-template-columns:1fr}
     }
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 8px;
-      background: #ffcc00;
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn:hover {
-      background: #ffaa00;
+    @media (max-width: 640px){
+      .nav-links{display:none}
+      .burger{display:inline-flex; gap:6px; align-items:center; border:1px solid var(--stroke); padding:8px 10px; border-radius:12px; background:#111}
+      .features{grid-template-columns:1fr}
+      .quotes{grid-template-columns:1fr}
+      .work .tile{grid-column:span 12}
+      .cta{flex-direction:column; align-items:flex-start}
     }
   </style>
 </head>
 <body>
-  <h1>Selamat Datang di TEMANCOX</h1>
-  <p>Brand yang simpel, berani, dan modern.</p>
-  <a href="#" class="btn">Mulai Sekarang</a>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3l9 6-9 12-9-12 9-6zm0 4.2L7.2 10l4.8 6.4L16.8 10 12 7.2z"/></svg>
+        </div>
+        <span>TEMANCOX</span>
+      </div>
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-primary">Hire Me</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Open menu">Menu</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero container">
+    <span class="eyebrow reveal"><span class="dot"></span> Front‑end Developer · HTML · CSS · JavaScript</span>
+    <h1 class="reveal" style="transition-delay:.05s">Bold, Simple, <span class="accent">Lightning‑Fast</span> Web Experiences.</h1>
+    <p class="lead reveal" style="transition-delay:.1s">I design and build modern, responsive interfaces that feel effortless. Clean HTML, scalable CSS, and vanilla JavaScript — optimized for performance and accessibility.</p>
+    <div class="cta reveal" style="transition-delay:.15s">
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+      <a href="#work" class="btn">See My Work</a>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-card reveal" style="transition-delay:.2s">
+        <div class="stat"><b>50+ projects</b> • Websites, landing pages, dashboards</div>
+        <div class="mock" aria-hidden="true" style="margin-top:12px">
+          <div class="bars">
+            <span style="grid-column:span 4"></span>
+            <span style="grid-column:span 3"></span>
+            <span style="grid-column:span 2"></span>
+            <span style="grid-column:span 6"></span>
+            <span style="grid-column:span 5"></span>
+            <span style="grid-column:span 2"></span>
+            <span style="grid-column:span 8"></span>
+            <span style="grid-column:span 3"></span>
+            <span style="grid-column:span 4"></span>
+            <span style="grid-column:span 7"></span>
+            <span style="grid-column:span 2"></span>
+            <span style="grid-column:span 5"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-card reveal" style="transition-delay:.25s">
+        <h3 style="margin:0 0 8px">Personal Branding</h3>
+        <p class="muted" style="margin:0">I love turning lines of code into engaging digital experiences. With <b>HTML, CSS, and JavaScript</b>, I create websites that not only look great but also feel smooth and intuitive to use.</p>
+        <div style="height:12px"></div>
+        <span class="chip">Fast Load</span>
+        <span class="chip">Mobile‑first</span>
+        <span class="chip">Accessible</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>Services</h2>
+        <p class="muted">Design to code · Improvements · Performance</p>
+      </div>
+      <div class="features">
+        <div class="card reveal">
+          <span class="chip">HTML</span>
+          <h3>Semantic & SEO‑ready Markup</h3>
+          <p class="muted">Clean structure, ARIA roles, and metadata so search engines and assistive tech love your site.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.05s">
+          <span class="chip">CSS</span>
+          <h3>Responsive, Scalable Styles</h3>
+          <p class="muted">Utility patterns, fluid typography, and grid layouts with attention to dark‑mode and motion.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.1s">
+          <span class="chip">JavaScript</span>
+          <h3>Interactions that Feel Effortless</h3>
+          <p class="muted">Vanilla JS for speed: forms, modals, sliders, content loaders, and micro‑interactions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <div class="section-head">
+        <h2>Selected Work</h2>
+        <p class="muted">A glimpse of recent projects</p>
+      </div>
+      <div class="work">
+        <div class="tile reveal">
+          <img alt="Landing page mock" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta">Fintech landing page — conversion +34%</div>
+        </div>
+        <div class="tile reveal" style="transition-delay:.05s">
+          <img alt="Dashboard" src="https://images.unsplash.com/photo-1551281044-8af0a81ae5e9?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta">Analytics dashboard — dark mode UX</div>
+        </div>
+        <div class="tile reveal" style="transition-delay:.1s">
+          <img alt="Ecommerce" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta">E‑commerce UI — lightweight components</div>
+        </div>
+        <div class="tile reveal" style="transition-delay:.15s">
+          <img alt="Portfolio" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta">Personal portfolio — performance 98/100</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section aria-labelledby="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="testimonials">What Clients Say</h2>
+        <p class="muted">Real impact, simple delivery</p>
+      </div>
+      <div class="quotes">
+        <blockquote class="reveal"><p>“Pixel‑perfect and fast. Our bounce rate dropped immediately.”</p><span class="muted">— R., Product Lead</span></blockquote>
+        <blockquote class="reveal" style="transition-delay:.05s"><p>“Clean code and great communication. We shipped ahead of schedule.”</p><span class="muted">— A., Founder</span></blockquote>
+        <blockquote class="reveal" style="transition-delay:.1s"><p>“The dark‑mode UX is exceptional. Highly recommended.”</p><span class="muted">— M., Marketing</span></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>About Me</h2>
+        <p class="muted">Front‑end developer — HTML · CSS · JavaScript</p>
+      </div>
+      <div class="features">
+        <div class="card reveal">
+          <h3>Approach</h3>
+          <p class="muted">Design‑system thinking, accessible by default, and performance budgets respected from day one.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.05s">
+          <h3>Stack</h3>
+          <p class="muted">Vanilla first. Comfortable with Tailwind, React, Vite when needed. Deploys on GitHub Pages/Netlify/Vercel.</p>
+        </div>
+        <div class="card reveal" style="transition-delay:.1s">
+          <h3>Values</h3>
+          <p class="muted">Bold, simple, and reliable. I keep things maintainable and communicate clearly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2>Let’s work together</h2>
+        <p class="muted">Tell me about your project</p>
+      </div>
+      <div class="contact">
+        <form class="card" id="contactForm" onsubmit="handleSubmit(event)">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+            <input class="input" type="text" name="name" placeholder="Your name" required>
+            <input class="input" type="email" name="email" placeholder="Email address" required>
+          </div>
+          <div style="height:12px"></div>
+          <input class="input" type="text" name="subject" placeholder="Subject">
+          <div style="height:12px"></div>
+          <textarea class="input" name="message" placeholder="Project details…" required></textarea>
+          <div style="height:12px"></div>
+          <button class="btn btn-primary" type="submit">Send Message</button>
+          <p id="formMsg" class="muted" style="margin-top:8px"></p>
+        </form>
+        <div class="card">
+          <h3>Contact Info</h3>
+          <p class="muted">Email: <a href="mailto:hello@temancox.ai">hello@temancox.ai</a><br>Location: Indonesia · Remote worldwide</p>
+          <div style="height:8px"></div>
+          <h3>Availability</h3>
+          <p class="muted">Open to freelance and collaborations. Typical turnaround 1–2 weeks for landing pages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:12px">
+      <span>© <span id="year"></span> TEMANCOX</span>
+      <a href="#" class="muted">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // mobile menu fallback (simple)
+    const burger = document.getElementById('burger');
+    burger?.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if(!links) return;
+      const shown = links.style.display === 'flex';
+      links.style.display = shown ? 'none' : 'flex';
+      links.style.flexDirection = 'column';
+      links.style.gap = '10px';
+      links.style.position = 'absolute';
+      links.style.top = '62px';
+      links.style.right = '4%';
+      links.style.background = '#111';
+      links.style.padding = '14px';
+      links.style.border = '1px solid var(--stroke)';
+      links.style.borderRadius = '12px';
+      links.style.boxShadow = 'var(--shadow)';
+    });
+
+    // simple reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // contact form (no backend) — mailto fallback
+    function handleSubmit(ev){
+      ev.preventDefault();
+      const fd = new FormData(ev.target);
+      const subject = encodeURIComponent(fd.get('subject') || 'New project');
+      const body = encodeURIComponent(`Name: ${fd.get('name')}\nEmail: ${fd.get('email')}\n\n${fd.get('message')}`);
+      const link = `mailto:hello@temancox.ai?subject=${subject}&body=${body}`;
+      document.getElementById('formMsg').textContent = 'Opening your email app…';
+      window.location.href = link;
+    }
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
